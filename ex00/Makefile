@@ -1,4 +1,4 @@
-NAME=bitcoin
+NAME=btc
 TESTS = 5
 
 CC = c++

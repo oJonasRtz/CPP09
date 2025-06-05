@@ -10,18 +10,9 @@
 
 #include <map>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
-class BitcoinExchange
-{
-	private:
-		/* data */
-	public:
-		BitcoinExchange();
-		BitcoinExchange(const BitcoinExchange &other);
-		BitcoinExchange	&operator=(const BitcoinExchange &other);
-		~BitcoinExchange();
-};
-
-std::ostream	&operator<<(std::ostream &out, const BitcoinExchange &other);
+void	exchange(std::ifstream &input, std::ifstream &db);
 
 #endif
