@@ -12,7 +12,14 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 
 void	exchange(std::ifstream &input, std::ifstream &db);
+template<typename T>
+T		drawError(const std::string &message, T exitCode)
+{
+	std::cout << BRIGHT_RED << message << RESET << std::endl;
+	return (exitCode);
+}
 
 #endif

@@ -1,38 +1,32 @@
 #include "BitcoinExchange.hpp"
 
-static void	drawTitle(const std::string &title, bool orange)
+static void	drawTitle(const std::string &title, bool orange = false)
 {
 	if (orange)
-		std::cout << ORANGE << std::string(LINE, '=') << "\n\t" << title << "\n" << std::string(LINE, '=') << RESET << std::endl;
-	else
-		std::cout << std::string(LINE, '=') << "\n\t" << title << "\n" << std::string(LINE, '=') << std::endl;
-}
-
-static int	errorMessage(const std::string &message, unsigned int exitCode = 0)
-{
-	std::cout << BRIGHT_RED << message << "\n" RESET;
-	return (exitCode);
+		std::cout << ORANGE;
+	std::cout << std::string(LINE, '=') << "\n\t" << title << "\n" << std::string(LINE, '=') << RESET << std::endl;
 }
 
 int	main(int argc, char **argv)
 {
 	//	Error management
 	if (argc != 2)
-		return (errorMessage("Error: could not open the file."));
+		return (drawError("Error: could not open the file.", 0));
 	
 	//	Setup
 	std::ifstream	db("./src/data.csv");
 	if (!db.is_open())
-		return (errorMessage("Error: could not open the data base.", 1));
+		return (drawError("Error: could not open the data base.", 1));
 	std::ifstream	input(argv[1]);
 	if (!input.is_open())
 	{
 		db.close();
-		return (errorMessage("Error: could not open the file.", 1));
+		return (drawError("Error: could not open the file.", 1));
 	}
+	
 	//	Run program
-	drawTitle("BitcoinExchange", 1);
-	// exchange(input, db);
+	drawTitle("BitcoinExchange");
+	exchange(input, db);
 
 	//	Close files
 	db.close();
