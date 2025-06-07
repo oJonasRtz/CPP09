@@ -34,11 +34,30 @@ static bool	isAllDigit(const std::string &str)
 	return (true);
 }
 
-static bool	checkValue(const std::string &value, const std::string &date)
+static bool	isValidDate(const std::string &date, const std::string &lastYear)
+{
+	//Check format YYYY-MM-DD
+	bool	format = date.size() == 10 && date[4] == '-' && date[7] == '-';
+	
+	//Check date
+	int	year = std::atoi(date.substr(0, 4).c_str());
+	int	yearDb = std::atoi(lastYear.substr(0, 4).c_str());
+	int	month = std::atoi(date.substr(5, 2).c_str());
+	int	day = std::atoi(date.substr(8, 2).c_str());
+	int	daysInMonth[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+	bool	myDate = (month <= 12 && month > 0)
+					&& (day > 0 && day <= daysInMonth[month - 1])
+					&& (year <= yearDb);
+
+	return (format && myDate);
+}
+
+static bool	checkValue(const std::string &value, const std::string &date, const std::string &lastYear)
 {
 	std::stringstream	ss;
 
-	if (value.empty() || !isAllDigit(value))
+	if (value.empty() || !isAllDigit(value) || !isValidDate(date, lastYear))
 	{
 		ss << "Error: bad input => " << date;
 		return (drawError(ss.str(), true));
@@ -123,7 +142,7 @@ void	exchange(std::ifstream &input, std::ifstream &db)
 		}
 		date = trim(date);
 		valueStr = trim(valueStr);
-		if (checkValue(valueStr, date))
+		if (checkValue(valueStr, date, data.rbegin()->first))
 			continue;
 		drawMessage(date, valueStr, data);
 	}

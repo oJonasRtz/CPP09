@@ -13,6 +13,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cstdlib>
 
 void	exchange(std::ifstream &input, std::ifstream &db);
 template<typename T>
