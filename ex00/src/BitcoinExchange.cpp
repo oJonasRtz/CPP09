@@ -34,30 +34,32 @@ static bool	isAllDigit(const std::string &str)
 	return (true);
 }
 
-static bool	isValidDate(const std::string &date, const std::string &lastYear)
+static bool	isValidDate(const std::string &date, const std::string &firstYear)
 {
 	//Check format YYYY-MM-DD
 	bool	format = date.size() == 10 && date[4] == '-' && date[7] == '-';
-	
+	if (!format)
+		return (format);
+
 	//Check date
 	int	year = std::atoi(date.substr(0, 4).c_str());
-	int	yearDb = std::atoi(lastYear.substr(0, 4).c_str());
+	int	yearDb = std::atoi(firstYear.substr(0, 4).c_str());
 	int	month = std::atoi(date.substr(5, 2).c_str());
 	int	day = std::atoi(date.substr(8, 2).c_str());
 	int	daysInMonth[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 	bool	myDate = (month <= 12 && month > 0)
 					&& (day > 0 && day <= daysInMonth[month - 1])
-					&& (year <= yearDb);
+					&& (year >= yearDb);
 
-	return (format && myDate);
+	return (myDate);
 }
 
-static bool	checkValue(const std::string &value, const std::string &date, const std::string &lastYear)
+static bool	checkValue(const std::string &value, const std::string &date, const std::string &firstYear)
 {
 	std::stringstream	ss;
 
-	if (value.empty() || !isAllDigit(value) || !isValidDate(date, lastYear))
+	if (value.empty() || !isAllDigit(value) || !isValidDate(date, firstYear))
 	{
 		ss << "Error: bad input => " << date;
 		return (drawError(ss.str(), true));
@@ -86,13 +88,13 @@ static std::string	trim(const std::string &str)
 static double	getClosestValue(std::map<std::string, double> &map, const std::string &date)
 {
 	std::map<std::string, double>::iterator	it = map.find(date);
-	
-	if (it == map.end())
-	{
-		std::map<std::string, double>::iterator	lb = map.lower_bound(date);
+	if (it != map.end())
+		return it->second;
+
+	std::map<std::string, double>::iterator	lb = map.lower_bound(date);
+	if (lb != map.end())
 		return (lb->second);
-	}
-	return (it->second);
+	return map.rbegin()->second;
 }
 
 static double	convert(std::map<std::string, double> &data, const std::string &date, const std::string &valueStr)
@@ -142,7 +144,7 @@ void	exchange(std::ifstream &input, std::ifstream &db)
 		}
 		date = trim(date);
 		valueStr = trim(valueStr);
-		if (checkValue(valueStr, date, data.rbegin()->first))
+		if (checkValue(valueStr, date, data.begin()->first))
 			continue;
 		drawMessage(date, valueStr, data);
 	}

@@ -16,6 +16,7 @@
 #include <cstdlib>
 
 void	exchange(std::ifstream &input, std::ifstream &db);
+
 template<typename T>
 T		drawError(const std::string &message, T exitCode)
 {
