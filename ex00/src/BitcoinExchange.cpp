@@ -59,7 +59,7 @@ static bool	checkValue(const std::string &value, const std::string &date, const 
 {
 	std::stringstream	ss;
 
-	if (value.empty() || !isAllDigit(value) || !isValidDate(date, firstYear))
+	if (value.empty() || date.empty() || !isAllDigit(value) || !isValidDate(date, firstYear))
 	{
 		ss << "Error: bad input => " << date;
 		return (drawError(ss.str(), true));
@@ -92,9 +92,10 @@ static double	getClosestValue(std::map<std::string, double> &map, const std::str
 		return it->second;
 
 	std::map<std::string, double>::iterator	lb = map.lower_bound(date);
-	if (lb != map.end())
-		return (lb->second);
-	return map.rbegin()->second;
+	if (lb == map.end() || lb->first > date)
+		lb--;
+
+	return lb->second;
 }
 
 static double	convert(std::map<std::string, double> &data, const std::string &date, const std::string &valueStr)
@@ -133,6 +134,8 @@ void	exchange(std::ifstream &input, std::ifstream &db)
 	//Ignore header
 	if (!std::getline(input, line))
 		return;
+	
+	//Read <input> file
 	while (std::getline(input, line))
 	{
 		std::string	date, valueStr;
