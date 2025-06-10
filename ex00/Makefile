@@ -45,6 +45,9 @@ input:
 	@echo "2010-50-20 | 12" >> $(TESTINPUT)
 	@echo "2070-05-09 | 9" >> $(TESTINPUT)
 	@echo "1950-05-09 | 9" >> $(TESTINPUT)
+	@echo "2015-05-09 | .........." >> $(TESTINPUT)
+	@echo "2015-05-09 | 3." >> $(TESTINPUT)
+	@echo "2015-05-09 | 3.0" >> $(TESTINPUT)
 
 test: re input
 	@valgrind ./$(NAME) $(TESTINPUT)

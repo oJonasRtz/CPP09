@@ -28,6 +28,16 @@ static void	fillMap(std::map<std::string, double> &map, std::ifstream &db)
 
 static bool	isAllDigit(const std::string &str)
 {
+	/*
+		Check if the first element is anythind diferent of a number
+		I trying to avoid inputs like this:
+			./btc .....................
+			./btc ,,,,,,,,,,,,,,,,,,,,,
+			./btc 3.
+	*/
+	if (!std::isdigit(str[0]) || !std::isdigit(str[str.size() - 1]))
+		return (false);
+
 	for (std::string::size_type i = 0; i < str.size(); i++)
 		if (!std::isdigit(str[i]) && str[i] != '.' && str[i] != '-')
 			return (false);
@@ -59,7 +69,8 @@ static bool	checkValue(const std::string &value, const std::string &date, const 
 {
 	std::stringstream	ss;
 
-	if (value.empty() || date.empty() || !isAllDigit(value) || !isValidDate(date, firstYear))
+	if (value.empty() || date.empty()
+		|| !isAllDigit(value) || !isValidDate(date, firstYear))
 	{
 		ss << "Error: bad input => " << date;
 		return (drawError(ss.str(), true));
