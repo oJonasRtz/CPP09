@@ -11,13 +11,14 @@
 #include <iostream>
 #include <stack>
 #include <cstdlib>
+#include <sstream>
 
 int	RPN(const std::string &input);
 
 template<typename T>
 T	errorMessage(const std::string &message, T exitCode)
 {
-	std::cout << BRIGHT_RED << message << RESET << std::endl;
+	std::cerr << BRIGHT_RED << message << RESET << std::endl;
 	return (exitCode);
 }
 
