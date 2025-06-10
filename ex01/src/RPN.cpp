@@ -81,13 +81,10 @@ int	RPN(const std::string &input)
 		i += getNumber(input.substr(i), myStack) - 1;
 	}
 	
-	//Debug porpouses - Delete later
-	std::stack<int>	cpy = myStack;
-	while (!cpy.empty())
-	{
-		std::cout << cpy.top() << std::endl;
-		cpy.pop();	
-	}
+	//Display result
+	std::cout << input <<
+				 " = " ORANGE <<
+				 myStack.top() << RESET << std::endl;
 
 	return (0);
 }
