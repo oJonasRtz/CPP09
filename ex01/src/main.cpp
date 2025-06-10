@@ -10,7 +10,15 @@ static void	drawTitle(const std::string &title, bool orange)
 
 int	main(int argc, char **argv)
 {
+	if (argc != 2)
+		return (errorMessage("How to use: ./RPN <your calculation in RPN notation>", 0));
+
 	drawTitle("RPN", 1);
+	try{
+		RPN(argv[1]);
+	} catch(const std::exception& e){
+		std::cerr << e.what() << '\n';
+	}
+	
 	return (0);
 }
-

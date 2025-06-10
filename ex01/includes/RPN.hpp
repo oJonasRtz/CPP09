@@ -9,18 +9,16 @@
 # define LINE 30
 
 #include <iostream>
+#include <stack>
+#include <cstdlib>
 
-class RPN
+int	RPN(const std::string &input);
+
+template<typename T>
+T	errorMessage(const std::string &message, T exitCode)
 {
-	private:
-		/* data */
-	public:
-		RPN();
-		RPN(const RPN &other);
-		RPN	&operator=(const RPN &other);
-		~RPN();
-};
-
-std::ostream	&operator<<(std::ostream &out, const RPN &other);
+	std::cout << BRIGHT_RED << message << RESET << std::endl;
+	return (exitCode);
+}
 
 #endif

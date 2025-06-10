@@ -25,9 +25,8 @@ run: re
 	@valgrind ./$(NAME)
 
 test: run
-	@for i in $(shell seq 1 $(TESTS)); do \
-		valgrind ./$(NAME) $$i; \
-	done
+	@valgrind ./$(NAME) "8 9 * 9 - 9 - 9 - 4 - 1 +"
+	@valgrind ./$(NAME) "0 4 /"
 
 clean:
 	@echo "\033[1;32m===========================================\033[0m"
