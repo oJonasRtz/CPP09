@@ -49,21 +49,32 @@ static void	insertion(t_vector &low, t_vector &high)
 	unsigned	inserted = 0;
 	unsigned	k = 3;
 
+	if (len)
+	{
+		t_vector::iterator	pos = std::upper_bound(high.begin(), high.end(), low[0]);
+		high.insert(pos, low[0]);
+		inserted++;
+	}
+
 	while (inserted < len)
 	{
 		unsigned	JK = jacobsthal(k);
-		unsigned	limit = std::min(len, JK);
+		unsigned	JPrev = jacobsthal(k - 1);
 
-		for (unsigned i = limit; i > inserted; i--)
+		//Limit the value to the true vector len
+		unsigned	upper = std::min(len, JK);
+		unsigned	lower = std::min(len, JPrev);
+
+		for (unsigned i = upper - 1; i >= lower; i--)
 		{
 			unsigned	val = low[i];
+
 			t_vector::iterator	pos = std::upper_bound(high.begin(), high.end(), val);
 			high.insert(pos, val);
 		}
-		inserted = limit;
+		inserted = upper;
 		k++;
-	}
-	
+	}	
 }
 
 void	PmergeMeVector(t_vector &base)
