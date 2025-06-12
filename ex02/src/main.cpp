@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 	drawTitle("PmergeMe", 1);
 	drawMessage<void>("\tBefore\n" + std::string(LINE, '-'));
 	drawConteiner("vector", vBase.begin(), vBase.end());
-	drawConteiner("list", lBase.begin(), lBase.end());
+	// drawConteiner("list", lBase.begin(), lBase.end());
 
 	PmergeMeVector(vBase);
 	

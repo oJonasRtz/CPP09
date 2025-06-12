@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <climits>
 #include <cerrno>
+#include <algorithm>
 
 typedef std::vector<unsigned int>	t_vector;
 typedef std::list<unsigned int>		t_list;

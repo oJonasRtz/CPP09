@@ -1,0 +1,91 @@
+#include "PmergeMe.hpp"
+
+#pragma region Vector
+static void	split(t_vector &base, t_vector &high, t_vector &low)
+{
+	size_t	i = 0, len = base.size();
+
+	for (; i + 1 < len; i += 2)
+	{
+		unsigned int	a = base[i];
+		unsigned int	b = base[i + 1];
+		if (a < b)
+		{
+			high.push_back(b);
+			low.push_back(a);
+		} else{
+			high.push_back(a);
+			low.push_back(b);
+		}
+	}
+
+	//Odd values
+	if (i < len)
+		low.push_back(base[i]);
+}
+
+static unsigned int	jacobsthal(unsigned int n)
+{
+	if (n < 2)
+		return (n);
+	
+	unsigned int	prev1 = 1;
+	unsigned int	prev2 = 0;
+	unsigned int	current = 0;
+
+	for (unsigned int k = 2; k <= n; k++)
+	{
+		current = prev1 + 2 * prev2;
+		prev2 = prev1;
+		prev1 = current;
+	}
+
+	return (current);
+}
+
+static void	insertion(t_vector &low, t_vector &high)
+{
+	unsigned	len = low.size();
+	unsigned	inserted = 0;
+	unsigned	k = 3;
+
+	while (inserted < len)
+	{
+		unsigned	JK = jacobsthal(k);
+		unsigned	limit = std::min(len, JK);
+
+		for (unsigned i = limit; i > inserted; i--)
+		{
+			unsigned	val = low[i];
+			t_vector::iterator	pos = std::upper_bound(high.begin(), high.end(), val);
+			high.insert(pos, val);
+		}
+		inserted = limit;
+		k++;
+	}
+	
+}
+
+void	PmergeMeVector(t_vector &base)
+{
+	//Recursion end
+	if (base.size() <= 1)
+		return;
+
+	//Split values
+	t_vector	high, low;
+	split(base, high, low);
+
+	//Recursion + put low 'n high back together
+	PmergeMeVector(high);
+	insertion(low, high);
+
+	//Final result
+	base = high;
+}
+
+#pragma endregion
+
+#pragma region list
+
+#pragma endregion

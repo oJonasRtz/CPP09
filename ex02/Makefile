@@ -5,7 +5,7 @@ CC = c++
 FLAGS = -g3 -Wall -Werror -Wextra -std=c++98
 
 INCLUDE = includes
-SRC =	PmergeMeVector.cpp\
+SRC =	PmergeMe.cpp\
 		main.cpp
 SRCS = $(addprefix src/, $(SRC))
 OBJS = $(SRCS:.cpp=.o)
