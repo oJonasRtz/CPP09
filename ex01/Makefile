@@ -52,6 +52,7 @@ test: run
 	@valgrind ./$(NAME) "5 999999999999999  +"
 	@valgrind ./$(NAME) "5 -2147483646  +"
 	@valgrind ./$(NAME) "5 2 + -2"
+	@valgrind ./$(NAME) "5 2 + 2b5 -"
 
 clean:
 	@echo "\033[1;32m===========================================\033[0m"

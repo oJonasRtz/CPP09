@@ -1,4 +1,4 @@
-#include "ClassTemplate.hpp"
+#include "PmergeMe.hpp"
 
 static void	drawTitle(const std::string &title, bool orange = false)
 {
@@ -9,7 +9,7 @@ static void	drawTitle(const std::string &title, bool orange = false)
 
 int	main(void)
 {
-	drawTitle("ClassTemplate", 1);
+	drawTitle("PmergeMe", 1);
 	return (0);
 }
 
