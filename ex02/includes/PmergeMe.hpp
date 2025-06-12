@@ -13,6 +13,9 @@
 #include <list>
 #include <cstdlib>
 #include <climits>
+#include <cerrno>
+
+void	PmergeMe();
 
 template<typename T>
 T	drawMessage(const std::string &message, T exitStatus, bool colour = false)

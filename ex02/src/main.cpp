@@ -7,24 +7,17 @@ static void	drawTitle(const std::string &title, bool orange = false)
 	std::cout << std::string(LINE, '=') << "\n\t" << title << "\n" << std::string(LINE, '=') << RESET << std::endl;
 }
 
-static bool	isAllDigit(const std::string &str)
-{
-	for (size_t i = 0; i < str.size(); i++)
-		if (!std::isdigit(str[i]))
-			return (false);
-	return (true);
-}
-
 static bool	convert(const std::string &str, unsigned int &out)
 {
 	char			*end;
 	unsigned long	temp;
 
-	if (str.empty() || !isAllDigit(str))
+	if (str.empty())
 		return (true);
 	
+	errno = 0;
 	temp = std::strtoul(str.c_str(), &end, 10);
-	if (*end || temp > UINT_MAX)
+	if (*end || temp > UINT_MAX || errno)
 		return (true);
 	out = static_cast<unsigned int>(temp);
 	return (false);
