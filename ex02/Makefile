@@ -1,5 +1,5 @@
-NAME=temp
-TESTS = 5
+NAME=PmergeMe
+
 
 CC = c++
 FLAGS = -g3 -Wall -Werror -Wextra -std=c++98
@@ -25,9 +25,14 @@ run: re
 	@valgrind ./$(NAME)
 
 test: run
-	@for i in $(shell seq 1 $(TESTS)); do \
-		valgrind ./$(NAME) $$i; \
-	done
+	valgrind ./$(NAME) 1 2 3 4 5
+	valgrind ./$(NAME) 1 2 3 4 5 "" | true
+	valgrind ./$(NAME) "" 1 2 3 4 | true
+	valgrind ./$(NAME) 1 2 3 4 abc | true
+	valgrind ./$(NAME) 1 2 3abc 4 | true
+	valgrind ./$(NAME) 4294967295
+	valgrind ./$(NAME) 4294967297
+	valgrind ./$(NAME) 1 2 3 -5
 
 clean:
 	@echo "\033[1;32m===========================================\033[0m"

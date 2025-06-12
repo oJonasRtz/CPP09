@@ -9,18 +9,27 @@
 # define LINE 30
 
 #include <iostream>
+#include <vector>
+#include <list>
+#include <cstdlib>
+#include <climits>
 
-class PmergeMe
+template<typename T>
+T	drawMessage(const std::string &message, T exitStatus, bool colour = false)
 {
-	private:
-		/* data */
-	public:
-		PmergeMe();
-		PmergeMe(const PmergeMe &other);
-		PmergeMe	&operator=(const PmergeMe &other);
-		~PmergeMe();
-};
+	if (colour)
+		std::cerr << BRIGHT_RED;
+	std::cerr << message << RESET << std::endl;
+	return (exitStatus);
+}
 
-std::ostream	&operator<<(std::ostream &out, const PmergeMe &other);
+template<typename It>
+void	drawConteiner(const std::string &message, It begin, It end)
+{
+	std::cout << message << ": " ORANGE;
+	for (It i = begin; i != end; i++)
+		std::cout << *i << " ";
+	std::cout << "\n" RESET;
+}
 
 #endif
