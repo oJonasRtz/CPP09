@@ -5,7 +5,7 @@ CC = c++
 FLAGS = -g3 -Wall -Werror -Wextra -std=c++98
 
 INCLUDE = includes
-SRC =	PmergeMe.cpp\
+SRC =	PmergeMeVector.cpp\
 		main.cpp
 SRCS = $(addprefix src/, $(SRC))
 OBJS = $(SRCS:.cpp=.o)
@@ -31,8 +31,11 @@ test: run
 	valgrind ./$(NAME) 1 2 3 4 abc | true
 	valgrind ./$(NAME) 1 2 3abc 4 | true
 	valgrind ./$(NAME) 4294967295
-	valgrind ./$(NAME) 4294967297
-	valgrind ./$(NAME) 1 2 3 -5
+	valgrind ./$(NAME) 4294967297 | true
+	valgrind ./$(NAME) 1 2 3 -5 | true
+	valgrind ./$(NAME) 5 4 3 2 1 
+	valgrind ./$(NAME) 1 2 3 4
+	valgrind ./$(NAME) 2 4 1 7 3
 
 clean:
 	@echo "\033[1;32m===========================================\033[0m"

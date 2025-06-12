@@ -42,8 +42,8 @@ static bool	parser(int argc, char **argv, std::vector<unsigned int> &vBase, std:
 
 int	main(int argc, char **argv)
 {
-	std::vector<unsigned int>	vBase;
-	std::list<unsigned int>		lBase;
+	t_vector	vBase;
+	t_list		lBase;
 	std::string					message;
 
 	if (parser(argc, argv, vBase, lBase))
@@ -53,5 +53,12 @@ int	main(int argc, char **argv)
 	drawMessage<void>("\tBefore\n" + std::string(LINE, '-'));
 	drawConteiner("vector", vBase.begin(), vBase.end());
 	drawConteiner("list", lBase.begin(), lBase.end());
+
+	PmergeMeVector(vBase);
+	
+	drawMessage<void>("\tAfter\n" + std::string(LINE, '-'));
+	drawConteiner("vector", vBase.begin(), vBase.end());
+	// drawConteiner("list", lBase.begin(), lBase.end());
+
 	return (0);
 }

@@ -15,7 +15,10 @@
 #include <climits>
 #include <cerrno>
 
-void	PmergeMe();
+typedef std::vector<unsigned int>	t_vector;
+typedef std::list<unsigned int>		t_list;
+
+void	PmergeMeVector(t_vector &base);
 
 template<typename T>
 T	drawMessage(const std::string &message, T exitStatus, bool colour = false)
