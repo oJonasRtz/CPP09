@@ -26,6 +26,13 @@ T	drawMessage(const std::string &message, T exitStatus, bool colour = false)
 	return (exitStatus);
 }
 
+template<typename T>
+T	drawMessage(const std::string &message)
+{
+	std::cout << message << std::endl;
+	return T();
+}
+
 template<typename It>
 void	drawConteiner(const std::string &message, It begin, It end)
 {

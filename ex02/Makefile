@@ -22,7 +22,7 @@ src/%.o: src/%.cpp
 	@$(CC) $(FLAGS) -I$(INCLUDE) -c $< -o $@
 
 run: re
-	@valgrind ./$(NAME)
+	@valgrind ./$(NAME) | true
 
 test: run
 	valgrind ./$(NAME) 1 2 3 4 5

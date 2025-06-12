@@ -25,12 +25,15 @@ static bool	convert(const std::string &str, unsigned int &out)
 
 static bool	parser(int argc, char **argv, std::vector<unsigned int> &vBase, std::list<unsigned int> &lBase)
 {
+	if (argc == 1)
+		return (drawMessage("Error: too few arguments", 1, 1));
+
 	unsigned int	value;
 
 	for (int i = 1; i < argc; i++)
 	{
 		if (convert(argv[i], value))
-			return (1);
+			return (drawMessage("Error: invalid input", 1, 1));
 		vBase.push_back(value);
 		lBase.push_back(value);
 	}
@@ -41,17 +44,14 @@ int	main(int argc, char **argv)
 {
 	std::vector<unsigned int>	vBase;
 	std::list<unsigned int>		lBase;
-
-	if (argc == 1)
-		return (drawMessage("Error: too few arguments", 0, 1));
+	std::string					message;
 
 	if (parser(argc, argv, vBase, lBase))
-		return (drawMessage("Error: invalid elements.", 0, 1));
+		return (1);
 	
 	drawTitle("PmergeMe", 1);
-	drawMessage("\tBefore\n" + std::string(LINE, '-'), 0, 0);
+	drawMessage<void>("\tBefore\n" + std::string(LINE, '-'));
 	drawConteiner("vector", vBase.begin(), vBase.end());
 	drawConteiner("list", lBase.begin(), lBase.end());
 	return (0);
 }
-
