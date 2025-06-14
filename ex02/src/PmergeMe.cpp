@@ -99,4 +99,88 @@ void	PmergeMeVector(t_vector &base)
 
 #pragma region list
 
+static void	listSplit(t_list &base, t_list &high, t_list &low)
+{
+	t_list::iterator	it = base.begin();
+	
+	while (it != base.end())
+	{
+		unsigned	a = *it;
+
+		it++;
+		if (it != base.end())
+		{
+			unsigned	b = *it;
+			if (a < b)
+			{
+				high.push_back(b);
+				low.push_back(a);
+			}
+			else
+			{
+				high.push_back(a);
+				low.push_back(b);
+			}
+			it++;
+		}
+		else
+		{
+			low.push_back(a);
+		}
+	}
+}
+
+static void	listInsertion(t_list &low, t_list &high)
+{
+	unsigned	len = low.size();
+	unsigned	inserted = 0;
+	unsigned	k = 3;
+
+	if (len)
+	{
+		t_list::iterator	it = low.begin();
+		unsigned			val = *it;
+		t_list::iterator	pos = std::upper_bound(high.begin(), high.end(), val);
+
+		high.insert(pos, val);
+		inserted++;
+		it++;
+	}
+	while (inserted < len)
+	{
+		unsigned	JK = jacobsthal(k);
+		unsigned	JPrev = jacobsthal(k - 1);
+
+		unsigned	upper = std::min(len, JK);
+		unsigned	lower = std::min(len, JPrev);
+
+		t_list::iterator	it = low.begin();
+		std::advance(it, upper - 1);
+		for (unsigned i = upper - 1; i >= lower; i--)
+		{
+			unsigned	val = *it;
+			t_list::iterator	pos = std::upper_bound(high.begin(), high.end(), val);
+			
+			high.insert(pos, val);
+			std::advance(it, -1);
+		}
+		inserted = upper;
+		k++;
+	}
+}
+
+void	PmergeMeList(t_list &base)
+{
+	if (base.size() <= 1)
+		return;
+
+	t_list	high, low;
+	listSplit(base, high, low);
+
+	PmergeMeList(high);
+	listInsertion(low, high);
+
+	base = high;
+}
+
 #pragma endregion

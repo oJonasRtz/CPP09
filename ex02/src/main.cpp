@@ -52,13 +52,31 @@ int	main(int argc, char **argv)
 	drawTitle("PmergeMe", 1);
 	drawMessage<void>("\tBefore\n" + std::string(LINE, '-'));
 	drawConteiner("vector", vBase.begin(), vBase.end());
-	// drawConteiner("list", lBase.begin(), lBase.end());
+	drawConteiner("list", lBase.begin(), lBase.end());
 
+	clock_t	vStart = clock();
 	PmergeMeVector(vBase);
-	
+	clock_t	vEnd = clock();
+	double vTime = static_cast<double>(vEnd - vStart) * (1e6 / CLOCKS_PER_SEC);
+
+	clock_t	lStart = clock();
+	PmergeMeList(lBase);
+	clock_t	lEnd = clock();
+	double	lTime = static_cast<double>(lEnd - lStart) * (1e6 / CLOCKS_PER_SEC);
+
 	drawMessage<void>("\tAfter\n" + std::string(LINE, '-'));
+	
+	//Vector time
 	drawConteiner("vector", vBase.begin(), vBase.end());
-	// drawConteiner("list", lBase.begin(), lBase.end());
+	std::cout << "Time to process a range of " << vBase.size() <<
+			std::fixed << std::setprecision(5) <<
+			 " elements with std::vector: " << vTime << " us" << std::endl;
+
+	//List time
+	drawConteiner("list", lBase.begin(), lBase.end());
+	std::cout << "Time to process a range of " << vBase.size() <<
+			std::fixed << std::setprecision(5) <<
+			 " elements with std::list: " << lTime << " us" << std::endl;
 
 	return (0);
 }

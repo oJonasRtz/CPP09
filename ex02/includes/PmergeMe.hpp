@@ -11,15 +11,18 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <iomanip>
 #include <cstdlib>
 #include <climits>
 #include <cerrno>
 #include <algorithm>
+#include <ctime>
 
 typedef std::vector<unsigned int>	t_vector;
 typedef std::list<unsigned int>		t_list;
 
 void	PmergeMeVector(t_vector &base);
+void	PmergeMeList(t_list &base);
 
 template<typename T>
 T	drawMessage(const std::string &message, T exitStatus, bool colour = false)
