@@ -37,6 +37,8 @@ test: run
 	valgrind ./$(NAME) 1 2 3 4
 	valgrind ./$(NAME) 2 4 1 7 3
 	valgrind ./$(NAME) $(shell shuf -i 1-100000 -n 3000 | tr "\n" " ")
+	valgrind ./$(NAME) 2 2 4 1 8 | true
+	valgrind ./$(NAME) 4 1 2 5
 
 clean:
 	@echo "\033[1;32m===========================================\033[0m"
