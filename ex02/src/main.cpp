@@ -44,7 +44,6 @@ int	main(int argc, char **argv)
 {
 	t_vector	vBase;
 	t_list		lBase;
-	std::string					message;
 
 	if (parser(argc, argv, vBase, lBase))
 		return (1);
