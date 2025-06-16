@@ -80,7 +80,7 @@ static void	insertion(t_vector &low, t_vector &high)
 void	PmergeMeVector(t_vector &base)
 {
 	//Recursion end
-	if (base.size() <= 1)
+	if (base.size() <= 1 || isSorted(base.begin(), base.end()))
 		return;
 
 	//Split values
@@ -171,7 +171,7 @@ static void	listInsertion(t_list &low, t_list &high)
 
 void	PmergeMeList(t_list &base)
 {
-	if (base.size() <= 1)
+	if (base.size() <= 1 || isSorted(base.begin(), base.end()))
 		return;
 
 	t_list	high, low;
